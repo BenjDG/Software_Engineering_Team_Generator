@@ -11,6 +11,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
+//name, id, email, officeNum
+const dave = new Manager('Dave', 'dv45', 'dave@email.com', '102');
+
+console.log(dave.getRole());
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
