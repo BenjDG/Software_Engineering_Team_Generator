@@ -14,7 +14,15 @@ const render = require("./lib/htmlRenderer");
 //name, id, email, officeNum
 const dave = new Manager('Dave', 'dv45', 'dave@email.com', '102');
 
-console.log(dave.getRole());
+const andy = new Intern('andy', 'ad45', 'andy@email.com', 'Pratt High');
+
+const eileen = new Engineer('Eileen', 'ei56', 'eileen@email.com', 'eiGitHub');
+
+console.log('dave.getRole()>> ' + dave.getRole());
+console.log('andy.getEmail()>> ' + andy.getEmail());
+console.log('eileen.getGithub()>> ' + eileen.getGithub());
+console.log('andy.getRole()>> ' + andy.getRole());
+console.log('andy.getSchool()>> ' + andy.getSchool());
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
