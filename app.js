@@ -34,7 +34,29 @@ const questionsMain = [
         message: 'Enter an email address:',
         name: 'email'
     },
-]
+];
+
+const questionsManager = [
+    {
+        type: 'input',
+        message: 'Enter an office number:',
+        name: 'officeNumber'
+    }
+];
+const questionsEngineer = [
+    {
+        type: 'input',
+        message: 'Enter a GitHub username:',
+        name: 'gitHubName'
+    }
+];
+const questionsIntern = [
+    {
+        type: 'input',
+        message: 'Enter the name of a school:',
+        name: 'school'
+    }
+];
 
 inquirer.prompt([
    
