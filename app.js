@@ -61,15 +61,37 @@ const questionsIntern = [
 inquirer
     .prompt(questionsMain)
     .then(answers => {
+
+        //console.dir(answers);
+        if (answers.title === 'Manager') {
+            inquirer.prompt(questionsManager)
+            .then(ans => answers.officeNumber = ans.officeNumber)
+            .catch(error => console.error(error));
+           //console.log('manager');
+        }
+        if (answers.title === 'Intern') {
+            inquirer.prompt(questionsIntern)
+            .then(ans => {
+                answers.school = ans.school;
+                // console.log(ans)
+                // console.dir(answers);
+            })
+            .catch(error => console.error(error));
+            //console.log('iinnnnnnnnntern');
+        }
+        if (answers.title === 'Engineer') {
+            inquirer.prompt(questionsEngineer)
+            .then(ans => {
+                answers.gitHubName = ans.gitHubName;
+                // console.log(ans)
+                // console.dir(answers);
+            })
+            .catch(error => console.error(error));
+            //console.log('engineeeeer');
+        }
         console.dir(answers);
     })
-    .catch(error => {
-        if(error.isTtyError) {
-            console.error("Prompt couldn't be rendered in the current environment")
-        } else {
-            console.error(error);
-        }
-    });
+    .catch(error => console.error(error));
 
 
 // and to create objects for each team member (using the correct classes as blueprints!)
