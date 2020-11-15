@@ -58,9 +58,18 @@ const questionsIntern = [
     }
 ];
 
-inquirer.prompt([
-   
-])
+inquirer
+    .prompt(questionsMain)
+    .then(answers => {
+        console.dir(answers);
+    })
+    .catch(error => {
+        if(error.isTtyError) {
+            console.error("Prompt couldn't be rendered in the current environment")
+        } else {
+            console.error(error);
+        }
+    });
 
 
 // and to create objects for each team member (using the correct classes as blueprints!)
