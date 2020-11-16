@@ -57,7 +57,7 @@ const questions = [
         when: answers => answers.title === 'Intern'
     },
     {
-        type: 'input',
+        type: 'list',
         message: 'another employee?',
         name: 'back',
         choices: ['yes','no']
@@ -69,6 +69,7 @@ async function ask() {
    await inquirer
         .prompt(questions)
         .then(answers => {
+
             if (answers.title === 'Manager') {
                 const managerOb = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
                 arrayOfObjects.push(managerOb);
@@ -81,7 +82,10 @@ async function ask() {
                 const internOb = new Intern(answers.name, answers.id, answers.email, answers.school);
                 arrayOfObjects.push(internOb);
             }
-            
+            console.log('Recorded: ' + answers.name);
+            if (answers.back === 'yes') {
+                return ask();
+            }
         });
         
 }
@@ -92,7 +96,7 @@ console.log('array length' + arrayOfObjects.length);
 //console.dir(arrayOfObjects)
 }
 
-//ask().then(logData);
+ask().then(logData);
 
 
 
