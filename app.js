@@ -12,6 +12,10 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 
+
+
+const answersArray = [];
+
 const questionsMain = [
     {
         type: 'list',
@@ -34,65 +38,41 @@ const questionsMain = [
         message: 'Enter an email address:',
         name: 'email'
     },
-];
-
-const questionsManager = [
     {
         type: 'input',
         message: 'Enter an office number:',
-        name: 'officeNumber'
-    }
-];
-const questionsEngineer = [
+        name: 'officeNumber',
+        when: answers => answers.title ==='Manager'
+    },
     {
         type: 'input',
         message: 'Enter a GitHub username:',
-        name: 'gitHubName'
-    }
-];
-const questionsIntern = [
+        name: 'gitHubName',
+        when: answers => answers.title ==='Engineer'
+    },
     {
         type: 'input',
         message: 'Enter the name of a school:',
-        name: 'school'
+        name: 'school',
+        when: answers => answers.title ==='Intern'
     }
 ];
 
+
 inquirer
-    .prompt(questionsMain)
-    .then(answers => {
-
-        //console.dir(answers);
-        if (answers.title === 'Manager') {
-            inquirer.prompt(questionsManager)
-            .then(ans => answers.officeNumber = ans.officeNumber)
-            .catch(error => console.error(error));
-           //console.log('manager');
-        }
-        if (answers.title === 'Intern') {
-            inquirer.prompt(questionsIntern)
-            .then(ans => {
-                answers.school = ans.school;
-                // console.log(ans)
-                // console.dir(answers);
-            })
-            .catch(error => console.error(error));
-            //console.log('iinnnnnnnnntern');
-        }
-        if (answers.title === 'Engineer') {
-            inquirer.prompt(questionsEngineer)
-            .then(ans => {
-                answers.gitHubName = ans.gitHubName;
-                // console.log(ans)
-                // console.dir(answers);
-            })
-            .catch(error => console.error(error));
-            //console.log('engineeeeer');
-        }
-        console.dir(answers);
-    })
-    .catch(error => console.error(error));
-
+  .prompt([
+    /* Pass your questions in here */
+  ])
+  .then(answers => {
+    // Use user feedback for... whatever!!
+  })
+  .catch(error => {
+    if(error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else when wrong
+    }
+  });
 
 // and to create objects for each team member (using the correct classes as blueprints!)
 
