@@ -42,47 +42,53 @@ const questions = [
         type: 'input',
         message: 'Enter an office number:',
         name: 'officeNumber',
-        when: answers => answers.title ==='Manager'
+        when: answers => answers.title === 'Manager'
     },
     {
         type: 'input',
         message: 'Enter a GitHub username:',
         name: 'gitHubName',
-        when: answers => answers.title ==='Engineer'
+        when: answers => answers.title === 'Engineer'
     },
     {
         type: 'input',
         message: 'Enter the name of a school:',
         name: 'school',
-        when: answers => answers.title ==='Intern'
+        when: answers => answers.title === 'Intern'
     }
 ];
 
 
-inquirer
-  .prompt(questions)
-  .then(answers => {
-    console.log(answers);
-    if (answers.title === 'Manager') {
-        const managerOb = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+async function ask() {
+    await inquirer
+        .prompt(questions)
+        .then(answers => {
 
-    }
-    if (answers.title === 'Engineer') {
-        const engineerOb = new Engineer(answers.name, answers.id, answers.email, answers.gitHubName);
-    }
-    if (answers.title === 'Intern') {
-        const internOb = new Intern(answers.name, answers.id, answers.email, answers.school);
-    }
+            if (answers.title === 'Manager') {
+                const managerOb = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+                arrayOfObjects.push(managerOb);
+            }
+            if (answers.title === 'Engineer') {
+                const engineerOb = new Engineer(answers.name, answers.id, answers.email, answers.gitHubName);
+                arrayOfObjects.push(engineerOb);
+            }
+            if (answers.title === 'Intern') {
+                const internOb = new Intern(answers.name, answers.id, answers.email, answers.school);
+                arrayOfObjects.push(internOb);
+            }
+            console.dir(arrayOfObjects);
+        });
+}
 
+function logData() {
+console.log('test');
+console.log('array length' + arrayOfObjects.length);
+//console.dir(arrayOfObjects)
+}
 
-  })
-  .catch(error => {
-    if(error.isTtyError) {
-      console.error("Prompt couldn't be rendered in the current environment")
-    } else {
-      console.error("inquirer had an error: " + error)
-    }
-  });
+ask().then(logData);
+//console.log(arrayOfObjects[0]);
+//console.log('cats');
 
 // and to create objects for each team member (using the correct classes as blueprints!)
 
