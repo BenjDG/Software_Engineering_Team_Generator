@@ -14,9 +14,9 @@ const render = require("./lib/htmlRenderer");
 
 
 
-const answersArray = [];
+const arrayOfObjects = [];
 
-const questionsMain = [
+const questions = [
     {
         type: 'list',
         message: 'Select a title:',
@@ -60,17 +60,27 @@ const questionsMain = [
 
 
 inquirer
-  .prompt([
-    /* Pass your questions in here */
-  ])
+  .prompt(questions)
   .then(answers => {
-    // Use user feedback for... whatever!!
+    console.log(answers);
+    if (answers.title === 'Manager') {
+        const managerOb = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+
+    }
+    if (answers.title === 'Engineer') {
+        const engineerOb = new Engineer(answers.name, answers.id, answers.email, answers.gitHubName);
+    }
+    if (answers.title === 'Intern') {
+        const internOb = new Intern(answers.name, answers.id, answers.email, answers.school);
+    }
+
+
   })
   .catch(error => {
     if(error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
+      console.error("Prompt couldn't be rendered in the current environment")
     } else {
-      // Something else when wrong
+      console.error("inquirer had an error: " + error)
     }
   });
 
