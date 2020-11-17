@@ -29,7 +29,7 @@ This project requires Node.js and a few dependencies listed in the package.json 
 
 ## Usage
 
-To use the project after cloning the repository, open a command line interface and browse to the root directory of the local project repository.  Use the command 'node app.js' to start the application.  When the application is completed, an 'Output' folder will be created in the rood folder and the generated html document will appear inside the 'Output' folder.
+To use the project after cloning the repository, open a command line interface and browse to the root directory of the local project repository.  Use the command 'node app.js' to start the application.  When the application is completed, an 'Output' folder will be created in the root folder and the generated html document will appear inside the 'Output' folder.
 
 
 <br/>
@@ -61,6 +61,6 @@ To test the project, open a command line interface in the root folder of the loc
 
 If you have questions about the project you can email me, or you can open an issue in the GitHub repository.
 
-My GitHub profile is [benjiDG](https://github.com/benjiDG)  
+My GitHub profile is [benjDG](https://github.com/benjDG)  
   
 Email: bdgalloway85@gmail.com.  
