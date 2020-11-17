@@ -2,6 +2,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
+const validator = require("validator");
 const path = require("path");
 const fs = require("fs");
 
@@ -21,45 +22,52 @@ const questions = [
     {
         type: 'input',
         message: "Enter employee's name:",
-        name: 'name'
+        name: 'name',
+        validate: validateAlpha
     },
     {
         type: 'input',
         message: 'Enter an id:',
-        name: 'id'
+        name: 'id',
+        validate: validateAlphaNumSingle
     },
     {
         type: 'input',
         message: 'Enter an email address:',
-        name: 'email'
+        name: 'email',
+        validate: validateEmail
     },
     {
         type: 'input',
         message: 'Enter an office number:',
         name: 'officeNumber',
-        when: answers => answers.title === 'Manager'
+        when: answers => answers.title === 'Manager',
+        validate: validateAlphaNumSingle
     },
     {
         type: 'input',
         message: 'Enter a GitHub username:',
         name: 'gitHubName',
-        when: answers => answers.title === 'Engineer'
+        when: answers => answers.title === 'Engineer',
+        validate: validateAlphaNumSingle
     },
     {
         type: 'input',
         message: 'Enter the name of a school:',
         name: 'school',
-        when: answers => answers.title === 'Intern'
+        when: answers => answers.title === 'Intern',
+        validate: validateAlpha
     },
     {
         type: 'list',
         message: 'another employee?',
         name: 'back',
-        choices: ['yes','no']
+        choices: ['yes', 'no']
     }
 ];
+
 async function ask() {
-   await inquirer
+    await inquirer
         .prompt(questions)
         .then(answers => {
             if (answers.title === 'Manager') {
@@ -78,8 +86,10 @@ async function ask() {
             if (answers.back === 'yes') {
                 return ask();
             }
-        });
+        })
+        .catch((err) => console.error(err));
 }
+
 async function renderHtml() {
     const response = await render(arrayOfObjects);
     if (fs.existsSync(OUTPUT_DIR)) {
@@ -89,4 +99,30 @@ async function renderHtml() {
         fs.writeFileSync(outputPath, response);
     }
 }
+
+function validateAlpha(input) {
+    const noSpaces = input.replace(/\s/g, '');
+    if (validator.isAlpha(noSpaces)) {
+        return true;
+    } else {
+        return 'Only use letters.'
+    }
+}
+
+function validateAlphaNumSingle(input) { 
+    if (validator.isAlphanumeric(input)) {
+        return true;
+    } else {
+        return 'Only use letters and/or numbers.'
+    }
+}
+
+function validateEmail(input) {
+    if (validator.isEmail(input)) {
+        return true;
+    } else {
+        return 'Enter a valid email address.'
+    }
+}
+
 ask().then(renderHtml);
