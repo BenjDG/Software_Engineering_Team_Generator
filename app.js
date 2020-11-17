@@ -27,35 +27,41 @@ const questions = [
         type: 'input',
         message: "Enter employee's name:",
         name: 'name',
-        validate: validateName
+        validate: validateAlpha
     },
     {
         type: 'input',
         message: 'Enter an id:',
-        name: 'id'
+        name: 'id',
+        validate: validateAlphaNum
     },
     {
         type: 'input',
         message: 'Enter an email address:',
-        name: 'email'
+        name: 'email',
+        validate: validateEmail
     },
     {
         type: 'input',
         message: 'Enter an office number:',
         name: 'officeNumber',
-        when: answers => answers.title === 'Manager'
+        when: answers => answers.title === 'Manager',
+        validate: validateAlphaNum
     },
     {
         type: 'input',
         message: 'Enter a GitHub username:',
         name: 'gitHubName',
-        when: answers => answers.title === 'Engineer'
+        when: answers => answers.title === 'Engineer',
+        validate: validateAlphaNum
+
     },
     {
         type: 'input',
         message: 'Enter the name of a school:',
         name: 'school',
-        when: answers => answers.title === 'Intern'
+        when: answers => answers.title === 'Intern',
+        validate: validateAlpha
     },
     {
         type: 'list',
@@ -100,15 +106,31 @@ async function renderHtml() {
     }
 }
 
-function validateName(input) {
-        var noSpaces = input.replace(/\s/g, '');
-        if(validator.isAlpha(noSpaces)) {
-            return true;
-        } else {
-            return 'Only use letters.'
-        }
+function validateAlpha(input) {
+    const noSpaces = input.replace(/\s/g, '');
+    if (validator.isAlpha(noSpaces)) {
+        return true;
+    } else {
+        return 'Only use letters.'
+    }
 }
-//validateName('ben');
+
+function validateAlphaNum(input) { 
+    if (validator.isAlphanumeric(input)) {
+        return true;
+    } else {
+        return 'Only use letters and/or numbers.'
+    }
+}
+
+function validateEmail(input) {
+    if (validator.isEmail(input)) {
+        return true;
+    } else {
+        return 'Enter a valid email address.'
+    }
+}
+//console.log(validateAlphaNum('345ben'));
 //validateName(234);
 //validateName('b e54');
 
