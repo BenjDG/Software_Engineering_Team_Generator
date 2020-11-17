@@ -2,6 +2,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
+const joi = require('joi');
 const path = require("path");
 const fs = require("fs");
 
@@ -21,7 +22,8 @@ const questions = [
     {
         type: 'input',
         message: "Enter employee's name:",
-        name: 'name'
+        name: 'name',
+        validate: validateName
     },
     {
         type: 'input',
@@ -80,6 +82,12 @@ async function ask() {
             }
         });
 }
+
+function validateName(input) {
+const reg = /[A-Za-z]+/;
+return reg.test(input) || "Name should include letters only and at least one character!"
+}
+
 async function renderHtml() {
     const response = await render(arrayOfObjects);
     if (fs.existsSync(OUTPUT_DIR)) {
@@ -89,4 +97,5 @@ async function renderHtml() {
         fs.writeFileSync(outputPath, response);
     }
 }
+
 ask().then(renderHtml);
