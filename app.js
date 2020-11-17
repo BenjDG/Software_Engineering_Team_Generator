@@ -91,18 +91,26 @@ async function ask() {
 }
 
 function logData() {
-console.log('test');
-console.log('array length' + arrayOfObjects.length);
-//console.dir(arrayOfObjects)
+    arrayOfObjects.forEach(el => console.log(el));
 }
 
-ask().then(logData);
+//render(arrayOfObjects);
+
+async function renderHtml() {
+    const response = await render(arrayOfObjects);
+    if (fs.existsSync(OUTPUT_DIR)) {
+        fs.writeFileSync(outputPath, response);
+    } else {
+        fs.mkdirSync(OUTPUT_DIR);
+        fs.writeFileSync(outputPath, response);
+    }
 
 
+}
 
-//console.log(arrayOfObjects[0]);
-//console.log('cats');
 
+ask().then(renderHtml);
+//.then(logData)
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
