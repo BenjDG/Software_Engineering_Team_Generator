@@ -11,11 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 const arrayOfObjects = [];
-
-
-
 const questions = [
     {
         type: 'list',
@@ -33,7 +29,7 @@ const questions = [
         type: 'input',
         message: 'Enter an id:',
         name: 'id',
-        validate: validateAlphaNum
+        validate: validateAlphaNumSingle
     },
     {
         type: 'input',
@@ -46,15 +42,14 @@ const questions = [
         message: 'Enter an office number:',
         name: 'officeNumber',
         when: answers => answers.title === 'Manager',
-        validate: validateAlphaNum
+        validate: validateAlphaNumSingle
     },
     {
         type: 'input',
         message: 'Enter a GitHub username:',
         name: 'gitHubName',
         when: answers => answers.title === 'Engineer',
-        validate: validateAlphaNum
-
+        validate: validateAlphaNumSingle
     },
     {
         type: 'input',
@@ -70,6 +65,7 @@ const questions = [
         choices: ['yes', 'no']
     }
 ];
+
 async function ask() {
     await inquirer
         .prompt(questions)
@@ -94,8 +90,6 @@ async function ask() {
         .catch((err) => console.error(err));
 }
 
-
-
 async function renderHtml() {
     const response = await render(arrayOfObjects);
     if (fs.existsSync(OUTPUT_DIR)) {
@@ -115,7 +109,7 @@ function validateAlpha(input) {
     }
 }
 
-function validateAlphaNum(input) { 
+function validateAlphaNumSingle(input) { 
     if (validator.isAlphanumeric(input)) {
         return true;
     } else {
@@ -130,12 +124,5 @@ function validateEmail(input) {
         return 'Enter a valid email address.'
     }
 }
-//console.log(validateAlphaNum('345ben'));
-//validateName(234);
-//validateName('b e54');
 
-//console.log(validateName(345));
-
-
-ask();
-//.then(renderHtml);
+ask().then(renderHtml);
