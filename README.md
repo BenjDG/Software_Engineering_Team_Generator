@@ -29,6 +29,8 @@ This project requires Node.js and a few dependencies listed in the package.json 
 
 ## Usage
 
+[Video Tutorial](https://youtu.be/Z6C3vGqtN3c)
+
 To use the project after cloning the repository, open a command line interface and browse to the root directory of the local project repository.  Use the command 'node app.js' to start the application.  When the application is completed, an 'Output' folder will be created in the root folder and the generated html document will appear inside the 'Output' folder.
 
 
